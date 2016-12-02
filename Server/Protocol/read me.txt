@@ -1,0 +1,14 @@
+修改 X.proto或XTags.h 后生成的步骤：
+1.运行 Compile.cmd 生成以下文件 
+    X.proto生成：X.json, X.pb.cc, X.pb.h
+    XTags.h生成：XTags.lua, XTags.xml
+2.拷贝X.proto并生成对应的LUA文件
+    拷贝到目录 D:\mobile\相关工具\protoc-gen-lua开发日志\protoc-gen-lua\example下
+    返回上级目录，运行buildLuaPB.bat会生成 X_pb.lua
+
+3. .proto生成的文件用于服务器使用，需要编译
+4. tags.h生成的文件用于客户端LUA，
+    XML放置在： \Assets\GameMessageTags.xml
+    Tags.lua放置在：\Assets\Lua\BY\GameMessageTags.lua
+5. 将X_pb.lua放置在：\Assets\Lua\BY\GameMessage_pb.lua
+

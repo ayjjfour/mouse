@@ -1,0 +1,29 @@
+#ifndef _SITE_MSG_H
+#define _SITE_MSG_H
+
+#include "TimerProbeMsg.h"
+
+//	msg
+const unsigned char SERVERSITE_MSG				=0x80;
+const unsigned char SERVERSITE_PERSONAL_SCENE	=(SERVERSITE_MSG+1);
+const unsigned char SERVERSITE_SCENE			=(SERVERSITE_MSG+2);
+const unsigned char SERVERSITE_FIRST_SCENE		=(SERVERSITE_MSG+3);
+const unsigned char SERVERSITE_SAVE_STORAGE		=(SERVERSITE_MSG+4);
+const unsigned char SERVERSITE_SAVE_STORAGE_CONTINUE		=(SERVERSITE_MSG+5);
+const unsigned char SERVERSITE_SAVE_STORAGE_END	=(SERVERSITE_MSG+6);
+const unsigned char SERVERSITE_GAME_OVER		=(SERVERSITE_MSG+7);
+const unsigned char SERVERSITE_GAME_DISMISS		=(SERVERSITE_MSG+8);
+const unsigned char SERVERSITE_ENABLE_LOOKON	=(SERVERSITE_MSG+9);
+const unsigned char SERVERSITE_WAITING_START	=(SERVERSITE_MSG+10);
+const unsigned char SERVERSITE_REQUEST_NEWVERSION =(SERVERSITE_MSG+11);
+const unsigned char SERVERSITE_MATCH_PROGRESSING =(SERVERSITE_MSG+12);
+const unsigned char SERVERSITE_MATCH_END		=(SERVERSITE_MSG+13);
+const unsigned char SERVERSITE_NOTIFY_MSG		=(SERVERSITE_MSG+14);
+
+const unsigned char CLIENTSITE_MSG				=0xc0;
+const unsigned char	CLIENTSITE_CONFIRM_START	=(CLIENTSITE_MSG+1);
+const unsigned char	CLIENTSITE_ENABLE_LOOKON	=(CLIENTSITE_MSG+2);
+const unsigned char	CLIENTSITE_REQUEST_STORAGE	=(CLIENTSITE_MSG+3);
+const unsigned char	CLIENTSITE_REQUEST_VERIFY_VERSION	=(CLIENTSITE_MSG+4);
+
+#endif	//_SITE_MSG_H

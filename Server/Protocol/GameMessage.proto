@@ -1,0 +1,342 @@
+package SY;
+
+message GameDataReq
+{
+	required int32 reg_type = 1;
+	optional uint32 remote_ip = 2;
+}
+
+
+//游戏基础数据包，其他共有的数据继承该结构体数据包
+
+// 技能状态
+enum SkillStatus
+{
+	InActive = 0;	// 未激活	
+	Actived = 1;	// 已激活
+	Disabled = 2;	// 已禁用（激活后才能禁用）
+}
+
+message SkillInfo
+{
+	optional int32   	SkillID=1;  // 技能ID
+	optional SkillStatus Status=2;  // 技能状态
+}
+
+message GameStationBase
+{
+	optional bool		Playing = 1;										//游戏是否已经开始
+	optional int32      SceneIndex = 2;							        //当前场景ID
+	repeated bool       OnLineChair = 3;                                   //在线状态
+	repeated int64		UserMoneyNum = 4;									//游戏币（所有人）
+	repeated int64		UserTicketNum = 5;								//礼票（所有人）
+	repeated int32		WeaponCost = 6;									//锤子基本消耗
+	repeated SkillInfo	SkillInf = 7;									//技能状态
+}
+
+//SERVERSITE_PERSONAL_SCENE 
+message ServerPersonalSceneRsp
+{
+	required int32 reg_type = 1;
+	required GameStationBase StationBase =2;
+}
+
+message ClientConfirmStartReq
+{
+  optional int32 ConfirmStart =1;								//玩家确认开始
+}
+//SERVERSITE_FIRST_SCENE
+message ServerFirstSceneRsp
+{
+	optional ServerPersonalSceneRsp first_scene = 1;
+}
+
+
+//客户端分辨率
+message ScreenResolution
+{
+	optional int32 CLIENT_WIDTH  = 1;         				//宽度
+	optional int32 CLIENT_HEIGHT = 2;  						//高度
+}
+
+
+// * /dispatch IID_TELEVISION_RESULT: Game to TS Chat content
+//ExtraTelevisionMsg be abandoned
+message GameChatSection   //36
+{
+	required int32 section_type = 1;									//4
+	optional string section_words = 2;									//32
+}
+message GameTelevisonResult  
+{
+	required int32 content_type = 1;									//4
+	required int32 game_id = 2;                                         //4
+	repeated GameChatSection content_info = 3;							//
+	//optional ExtraTelevisionRsp extra_info = 4;                       //
+}
+
+//同步游戏币、礼票、经验和等级到客户端
+message UserMoneySync   //size 8
+{
+    required int32 ChairID =1;      //玩家椅子                                   //4
+    optional int64 UserMoneyNum =2;    //游戏币数目									//4
+    optional int64 UserTicketNum =3;    //礼票数目									//4
+    optional int32 level = 4;
+    optional uint64 exp = 5;
+}
+
+//切换武器
+message ChangeWeaponReq //6
+{
+	optional int32 ChairID =1;       //玩家座位号							//4
+	optional int32 WeaponID = 2;     //武器ID							    //4
+}
+
+//客户端收到切换武器（如果失败才返回） 
+message ChangeWeaponRsp //6
+{
+	optional int32 ChairID =1;       //玩家座位号							//4
+	optional int32 WeaponID =2;      //武器ID							//4
+	optional int32 Result =3;        //操作结果                 
+}
+
+//提前激活技能
+message BuySkillReq
+{
+	optional int32 ChairID =1;       //玩家座位号							//4
+	optional int32 SkillID =2;       //技能ID							//4
+}
+
+// 激活结果
+message BuySkillRsp
+{
+	optional int32 ChairID =1;       //玩家座位号							//4
+	optional int32 SkillID =2;       //技能ID							//4
+    optional int32 Result =3;        //操作结果
+}
+
+//购买挂机等级
+message BuyAutoAttackReq
+{
+	optional int32 ChairID =1;       //玩家座位号							//4
+	optional int32 AutoAttackLevel =2;   //购买的自动挂机等级							//4
+}
+
+
+//购买自动锤等级  2016.10.17 hl
+
+message BuyHammerLevelReq
+{
+	optional int32 ChairID = 1;//玩家座位号                                  //4
+	optional int32 HammerLevel = 2;//购买自动锤等级                         //4
+}
+// 购买自动锤结果 2016.10.17 hl
+
+message BuyHammerLevelRsp
+{
+	optional int32 ChairID = 1;//玩家座位号                                  //4
+	optional int32 HammerLevel = 2;//购买自动锤等级                         //4
+	optional int32 Result = 3; //操作结果
+}
+
+// 鼠王暴击响应	add by 袁俊杰 2016-10-20
+message KingCriticalHit
+{
+	optional int32	ChairID = 1;			//玩家座位号
+	required int32	isCriticalHit = 2;		//是否暴击的标志
+	optional int32	WeaponID = 3;        	//击打的武器								//4
+    repeated int32	MonsterIDList = 4;   	//触发技能和目标列表				//4
+	optional int64	UserMoneyGain = 5;		//玩家暴击金币收益
+	optional int64	UserTicketGain = 6;		//玩家暴击礼票收益
+    optional int64	UserMoneyNum = 7;		//玩家剩余的分数
+    optional int64	UserTicketNum = 8;		//玩家剩余的礼票
+	optional int32	AnimMidLast = 9;		//鼠王暴击中间动画持续时间（毫秒）
+	optional int32	AnimEndLast = 10;		//鼠王暴击结束动画持续时间（毫秒）
+}
+
+// 购买挂机等级结果
+message BuyAutoAttackRsp
+{
+	optional int32 ChairID =1;       //玩家座位号							//4
+	optional int32 AutoAttackLevel =2;       //购买的自动挂机等级							//4
+    optional int32 Result =3;        //操作结果
+}
+
+//修改技能状态
+message ChangeSkillStatus
+{
+	optional int32 ChairID =1;       //玩家座位号							//4
+    repeated SkillInfo SkillInf=2;   //技能状态
+}
+
+//技能攻击怪物时
+message SkillHit
+{
+    optional int32 TriggerSkillID = 1;     //触发的技能	
+    repeated int32 MonsterID =2;           //技能打中的目标
+}
+
+//点击怪物时
+message PlayerHit   //17
+{
+	optional int32 ChairID =1;            	//玩家座位号					//4
+	optional int32 MonsterID =2;         	//击打的目标								//4
+	optional int32 WeaponID = 3;			//击打的武器								//4
+	repeated SkillHit SkillList = 4;   		//触发技能和目标列表				//4
+	optional bool   IsRobot =5;       		//是否机器人								//1
+	optional bool   HasPayWeaponCost = 6;   //用于刷怪速度过快，导致服务端怪已经消失，但客户端未消失，并且Hp大于1，进行了多次击打，导致服务端多次反还消费
+	repeated int32 MonsterIDList = 7;		//怪物ID列表（用于鼠王暴击事件）
+	repeated int32  SkillHitListHasPay = 8;  //技能击中列表中已经扣费id集合
+}
+
+//客户端收到攻击的反馈
+message PlayerHitSync   //  21
+{
+	optional int32 ChairID = 1;            //玩家座位号					//4
+	optional int32 MonsterID =2;         //击打的目标								//4
+	optional int32 WeaponID = 3;        //击打的武器								//4
+    repeated SkillHit SkillList = 4;   //触发技能和目标列表				//4
+    optional int64 UserMoneyNum   = 5;//玩家剩余的分数
+    optional int64 UserTicketNum = 6;//玩家剩余的分数
+}
+
+// 每只怪死亡的收益
+message MonsterIncoming
+{
+    optional int32 MonsterID = 1;
+    optional int32 KillRate = 2;
+    optional int32 UserMoneyNum = 3; 
+    optional int32 UserTicketNum = 4;
+	optional int32 WeaponCostEx = 5;
+}
+
+//攻击后获得的收益
+message PlayerHitIncoming
+{
+ 	optional int32 ChairID = 1;                  //玩家座位号					//4   
+    repeated MonsterIncoming IncomingList = 2;   //触发技能和目标列表				//4
+}
+
+//坐标信息
+message Point
+{
+	optional int32 x = 1; 				//X坐标                                                          	//4
+	optional int32 y = 2;				//Y坐标	  
+}
+
+//发送怪物消息
+message MonsterTrace   //53
+{
+	optional int32 MonsterID=1;   			//怪物ID
+    optional int32 TypeID=2;				//怪物类型
+    optional int32 CurHP=3;					//当前血量
+    optional int32 MaxHP=4;					//最大数量
+    optional float Speed=5;					//移动速度
+    optional int32 RespawnIndex=6;          //出生在哪个洞（只对地鼠有效，非地鼠为空）
+    repeated Point RespawnPosition=7;		//出生坐标（只对飞行类有效，非飞行为空）
+    repeated Point MoveDestination=8;		//移动目标坐标（只对飞行类有效，非飞行为空）
+	repeated Point EscapseDestination=9;	//逃跑目标坐标（只对飞行类有效，非飞行为空）
+	optional float DelayMoveTime=10;			//出生后X秒移动
+	optional float DelayEscapeTime=11;		//到目标后X秒逃跑
+	optional float SpeedRate     =12;         //该怪生成时配置动画时间属性 可以用来判断是否是狂暴  -1为普通 >0为狂暴	 
+	}
+
+// 需要批量刷新时，可以将部分通用数据提出减少包的大小
+message MonsterTraces    // 266
+{
+	required bool IsGroup = 1;				//规则标识						//1
+	repeated MonsterTrace Traces = 2;       //成群出动的怪 
+}
+
+message ChangeScene   //8
+{
+	required int32 SceneIndex = 1;											//4
+}
+
+message AllMonsterId
+{
+	optional int32  id = 1;//怪id
+}
+//狂暴状态改变消息 2016.10.20. hl
+message WildSkillStatus
+{
+	optional int32   wild_skill_status    = 1;           //狂暴状态
+	optional int32     remain_time        =2;           //狂暴剩余时间(只有在狂暴为1时才判断该值)
+	optional float   wild_skill_cost_rate = 3;          //狂暴状态扣费费率
+	repeated  AllMonsterId wild_monster_id = 4;        //狂暴期间无狂暴状态的怪的id
+}
+
+//狂暴状态武器扣费客户端钱不足返回
+message WildSkillWeaponCostModify
+{
+	optional int32  wild_skill_weapon_cost_modify  =1;  //狂暴状态武器扣费修正
+}
+
+//强制鱼死亡消息（也许不需要）
+//message MonsterDieSync
+//{
+//	required int32 MonsterID = 1;                    //死亡的怪物ID
+//}
+
+//播报消息
+message BroadcastS2C
+{
+	optional string Text 				    =1;         //播报内容
+	optional string UserName 				=2;         //玩家昵称
+    optional int32 WeaponID 				=3;         //武器类型
+	optional string MonsterName             =4;			//怪物名称
+	optional int32 RewardMoneyNum			=5;         //金币奖励数量
+    optional int32 RewardTicketNum 		    =6;         //礼票奖励数量
+}
+
+// 技能状态
+enum ReturnReasonType
+{
+	RRT_None = 0;	    // 未知原因
+	RRT_BuySkill = 1;   // 购买技能返还
+}
+
+// 返还金币
+message ReturnUserMoney
+{
+    optional int32 ChairID = 1;                 // 玩家座位号					//4
+    optional ReturnReasonType ReturnReason = 2; // 返还原因，对应显示内容
+    optional int32 ReturnData = 3;              // 原因对应的数据，如购买技能ID
+    optional int64 ReturnUserMoneyNum = 4;      // 返还的金币数量
+}
+
+message HallGsAdditionalGameData1Rsp   //这个是通用的版本
+{
+	required uint32 index = 1;
+	required int32 user_dbid = 2;	//用户ID
+	optional int32 type = 3;
+	optional int32 size = 4;
+	optional string add_game_data = 5;
+}
+
+message AdditionalGameDataRsp
+{
+	required int32 result = 1;
+	required int32 game_id = 2;
+	required int32 user_dbid = 3;
+	optional string additional_data = 4;
+}
+
+//刷新玩家等级和经验
+message RefreshUserFishExp
+{
+	required int32 userID = 1;
+	required int32 level = 2;
+	optional uint64 exp = 3;
+}
+
+message ArenaInfo
+{
+	required int32 id = 1;
+	required int32 game_id = 2;
+	required int32 type = 3;
+	optional int32 min_money = 4;
+	optional int64 rule = 5;
+	optional int32 level = 6; //房间等级 
+	optional string name = 7;
+}

@@ -1,0 +1,553 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+            GameProperty 游戏设定相关配置
+                AddMonsterTime:         单只刷怪间隔（毫秒）
+                AddGroupMonsterTime:    有规则刷新群怪间隔（毫秒）
+                KillMonsterTime:        定时清理怪物（毫秒）
+                ChangeScrenceTime:      切换场景的时间(毫秒)
+                CheckPoolTime:          检查奖池情况(毫秒)  主要是在写日志？
+                LoadFileTime:           刷新配置文件时间（毫秒）
+-->
+<!--
+            CommonMonsterProperty, MonsterProperty 怪物相关，其中 CommonMonsterProperty是怪物通用属性，与房间无关
+                ID:                     索引，0-8，对应MonsterType
+                Name:                   名字
+                RespawnProb:            怪物刷新机率，千分比， 可以在不同场景下设置不同的刷新几率
+                MaxOnScreen:            最大同屏数量
+                HP:                     血量，可以挨几下
+                MoveSpeed:              移动速度
+                WaitToEscapeTime:       出现到移动时间，秒
+                EscapeTime:             移动到逃跑时间，秒 （等待挨打时间）
+                
+                KillRate:               击杀率  注：R[]表示在某数值范围内随机一个倍数，1除以这个倍数即为该地鼠或怪物的击杀率，对于盗宝小妖为击杀掉落百分比区间
+                MissRate:               免伤率  注：所有小数的概念，精度都是小数点后4位，即 N/10000 的几率，输入整数部分即可，下同
+                TicketNum:              树懒成功击杀后，固定获得的礼票数， 根据武器还会随机获取一个范围的礼票
+-->
+<!--
+            GameIncoming 游戏收益相关
+                WelfarePointFactor:               福利产出系数： 单位为x%
+                ExpFactor:                        经验产出系数： 1金币对应经验值，单位为 x%
+-->
+<!--
+            MonsterPoolConfig 生物对象池配置
+                DefaultSize:            对象池默认值
+                MaxSize:                对象池最大，如果设为0，表示不限大小
+                OffsetSize:             每次扩充的大小
+-->
+<!--
+            WeaponCost 武器花费
+                ID:                     索引，1-6，对应WeaponID
+                Name:                   名字
+                Cost:                   每次击晕消耗
+                MoneyLimit:             携带此锤的金币持有量（Cost*此值）
+-->
+<!--
+            WeaponTicketIncoming 不同武器打树懒的礼票
+                ID:                     索引，1-6，对应WeaponID
+                TicketNum:              随机礼票数
+-->
+<!--
+            SkillCost 技能花费
+                ID:                     索引，1-4，对应SkillID
+                Name:                   名字
+                BaseProb:               基础触发几率
+                MaxProb:                触发几率上限（达到激活等级后，每升2级提升1%直到上限）
+                ActiveLevel:            默认激活等级
+                BuyCost:                提前激活消耗金币
+-->
+<!--
+            Broadcast 服务器播报
+                ServerLimit:            服务器播报等级，大于此等级时才会播报
+                Limit:                  玩家杀死怪物>=此等级时会播报
+                Text:                   播报格式内容
+-->
+
+<Config>
+    <!-- 
+        LevelLimit 等级分段 
+            Level
+                ID:         级别
+                EXP:        升到下一级对应经验值
+    -->
+    <LevelLimit MaxLevel="350">
+	  <Level ID="0" EXP="0" />
+	  <Level ID="1" EXP="2550" />
+	  <Level ID="2" EXP="5200" />
+	  <Level ID="3" EXP="10200" />
+	  <Level ID="4" EXP="20000" />
+	  <Level ID="5" EXP="30000" />
+	  <Level ID="6" EXP="40400" />
+	  <Level ID="7" EXP="51600" />
+	  <Level ID="8" EXP="63600" />
+	  <Level ID="9" EXP="76400" />
+	  <Level ID="10" EXP="90000" />
+	  <Level ID="11" EXP="109760" />
+	  <Level ID="12" EXP="131040" />
+	  <Level ID="13" EXP="153840" />
+	  <Level ID="14" EXP="178160" />
+	  <Level ID="15" EXP="204000" />
+	  <Level ID="16" EXP="237280" />
+	  <Level ID="17" EXP="273120" />
+	  <Level ID="18" EXP="311520" />
+	  <Level ID="19" EXP="352480" />
+	  <Level ID="20" EXP="396000" />
+	  <Level ID="21" EXP="446960" />
+	  <Level ID="22" EXP="501840" />
+	  <Level ID="23" EXP="560640" />
+	  <Level ID="24" EXP="623360" />
+	  <Level ID="25" EXP="690000" />
+	  <Level ID="26" EXP="762800" />
+	  <Level ID="27" EXP="841200" />
+	  <Level ID="28" EXP="925200" />
+	  <Level ID="29" EXP="1014800" />
+	  <Level ID="30" EXP="1110000" />
+	  <Level ID="31" EXP="1210880" />
+	  <Level ID="32" EXP="1319520" />
+	  <Level ID="33" EXP="1435920" />
+	  <Level ID="34" EXP="1560080" />
+	  <Level ID="35" EXP="1692000" />
+	  <Level ID="36" EXP="1827200" />
+	  <Level ID="37" EXP="1972800" />
+	  <Level ID="38" EXP="2128800" />
+	  <Level ID="39" EXP="2296200" />
+	  <Level ID="40" EXP="2472000" />
+	  <Level ID="41" EXP="2648800" />
+	  <Level ID="42" EXP="2839200" />
+	  <Level ID="43" EXP="3043200" />
+	  <Level ID="44" EXP="3262800" />
+	  <Level ID="45" EXP="3492000" />
+	  <Level ID="46" EXP="3723020" />
+	  <Level ID="47" EXP="3962880" />
+	  <Level ID="48" EXP="4224480" />
+	  <Level ID="49" EXP="4511320" />
+	  <Level ID="50" EXP="4800000" />
+	  <Level ID="51" EXP="5090040" />
+	  <Level ID="52" EXP="5396160" />
+	  <Level ID="53" EXP="5727360" />
+	  <Level ID="54" EXP="6080640" />
+	  <Level ID="55" EXP="6456000" />
+	  <Level ID="56" EXP="6855360" />
+	  <Level ID="57" EXP="7285440" />
+	  <Level ID="58" EXP="7746240" />
+	  <Level ID="59" EXP="8237760" />
+	  <Level ID="60" EXP="8760000" />
+	  <Level ID="61" EXP="9365280" />
+	  <Level ID="62" EXP="10017120" />
+	  <Level ID="63" EXP="10715520" />
+	  <Level ID="64" EXP="11460480" />
+	  <Level ID="65" EXP="12252000" />
+	  <Level ID="66" EXP="13240000" />
+	  <Level ID="67" EXP="14304000" />
+	  <Level ID="68" EXP="15444000" />
+	  <Level ID="69" EXP="16660000" />
+	  <Level ID="70" EXP="17952000" />
+	  <Level ID="71" EXP="19582720" />
+	  <Level ID="72" EXP="21338880" />
+	  <Level ID="73" EXP="23220480" />
+	  <Level ID="74" EXP="25227520" />
+	  <Level ID="75" EXP="27360000" />
+	  <Level ID="76" EXP="30059840" />
+	  <Level ID="77" EXP="32967360" />
+	  <Level ID="78" EXP="36082560" />
+	  <Level ID="79" EXP="39405440" />
+	  <Level ID="80" EXP="42936000" />
+	  <Level ID="81" EXP="47380960" />
+	  <Level ID="82" EXP="52167840" />
+	  <Level ID="83" EXP="57296640" />
+	  <Level ID="84" EXP="62767360" />
+	  <Level ID="85" EXP="68580000" />
+	  <Level ID="86" EXP="75862080" />
+	  <Level ID="87" EXP="83704320" />
+	  <Level ID="88" EXP="92106720" />
+	  <Level ID="89" EXP="101069280" />
+	  <Level ID="90" EXP="110592000" />
+	  <Level ID="91" EXP="122583200" />
+	  <Level ID="92" EXP="135496800" />
+	  <Level ID="93" EXP="149332800" />
+	  <Level ID="94" EXP="164091200" />
+	  <Level ID="95" EXP="179772000" />
+	  <Level ID="96" EXP="199571520" />
+	  <Level ID="97" EXP="220894080" />
+	  <Level ID="98" EXP="243739680" />
+	  <Level ID="99" EXP="268108320" />
+	  <Level ID="100" EXP="294000000" />
+	  <Level ID="101" EXP="303969440" />
+	  <Level ID="102" EXP="314705760" />
+	  <Level ID="103" EXP="326208960" />
+	  <Level ID="104" EXP="338479040" />
+	  <Level ID="105" EXP="351516000" />
+	  <Level ID="106" EXP="361275360" />
+	  <Level ID="107" EXP="371785440" />
+	  <Level ID="108" EXP="383046240" />
+	  <Level ID="109" EXP="395057760" />
+	  <Level ID="110" EXP="407820000" />
+	  <Level ID="111" EXP="418014080" />
+	  <Level ID="112" EXP="428992320" />
+	  <Level ID="113" EXP="440754720" />
+	  <Level ID="114" EXP="453301280" />
+	  <Level ID="115" EXP="466632000" />
+	  <Level ID="116" EXP="476844800" />
+	  <Level ID="117" EXP="487843200" />
+	  <Level ID="118" EXP="499627200" />
+	  <Level ID="119" EXP="512196800" />
+	  <Level ID="120" EXP="525552000" />
+	  <Level ID="121" EXP="535575520" />
+	  <Level ID="122" EXP="546370080" />
+	  <Level ID="123" EXP="557935680" />
+	  <Level ID="124" EXP="570272320" />
+	  <Level ID="125" EXP="583380000" />
+	  <Level ID="126" EXP="593214240" />
+	  <Level ID="127" EXP="603804960" />
+	  <Level ID="128" EXP="615152160" />
+	  <Level ID="129" EXP="627255840" />
+	  <Level ID="130" EXP="640116000" />
+	  <Level ID="131" EXP="649864960" />
+	  <Level ID="132" EXP="660363840" />
+	  <Level ID="133" EXP="671612640" />
+	  <Level ID="134" EXP="683611360" />
+	  <Level ID="135" EXP="696360000" />
+	  <Level ID="136" EXP="706127680" />
+	  <Level ID="137" EXP="716646720" />
+	  <Level ID="138" EXP="727917120" />
+	  <Level ID="139" EXP="739938880" />
+	  <Level ID="140" EXP="752712000" />
+	  <Level ID="141" EXP="762810400" />
+	  <Level ID="142" EXP="773685600" />
+	  <Level ID="143" EXP="785337600" />
+	  <Level ID="144" EXP="797766400" />
+	  <Level ID="145" EXP="810972000" />
+	  <Level ID="146" EXP="821692320" />
+	  <Level ID="147" EXP="833237280" />
+	  <Level ID="148" EXP="845606880" />
+	  <Level ID="149" EXP="858801120" />
+	  <Level ID="150" EXP="872820000" />
+	  <Level ID="151" EXP="885202240" />
+	  <Level ID="152" EXP="898536960" />
+	  <Level ID="153" EXP="912824160" />
+	  <Level ID="154" EXP="928063840" />
+	  <Level ID="155" EXP="944256000" />
+	  <Level ID="156" EXP="959340160" />
+	  <Level ID="157" EXP="975584640" />
+	  <Level ID="158" EXP="992989440" />
+	  <Level ID="159" EXP="1011554560" />
+	  <Level ID="160" EXP="1031280000" />
+	  <Level ID="161" EXP="1050105733" />
+	  <Level ID="162" EXP="1070379600" />
+	  <Level ID="163" EXP="1092101600" />
+	  <Level ID="164" EXP="1115271733" />
+	  <Level ID="165" EXP="1139892000" />
+	  <Level ID="166" EXP="1163500000" />
+	  <Level ID="167" EXP="1188924000" />
+	  <Level ID="168" EXP="1216164000" />
+	  <Level ID="169" EXP="1245220000" />
+	  <Level ID="170" EXP="1276092000" />
+	  <Level ID="171" EXP="1305522267" />
+	  <Level ID="172" EXP="1337216400" />
+	  <Level ID="173" EXP="1371174400" />
+	  <Level ID="174" EXP="1407396267" />
+	  <Level ID="175" EXP="1445880000" />
+	  <Level ID="176" EXP="1482172533" />
+	  <Level ID="177" EXP="1521256800" />
+	  <Level ID="178" EXP="1563132800" />
+	  <Level ID="179" EXP="1607800533" />
+	  <Level ID="180" EXP="1655256000" />
+	  <Level ID="181" EXP="1699449067" />
+	  <Level ID="182" EXP="1747041600" />
+	  <Level ID="183" EXP="1798033600" />
+	  <Level ID="184" EXP="1852425067" />
+	  <Level ID="185" EXP="1910220000" />
+	  <Level ID="186" EXP="1963355333" />
+	  <Level ID="187" EXP="2020578000" />
+	  <Level ID="188" EXP="2081888000" />
+	  <Level ID="189" EXP="2147285333" />
+	  <Level ID="190" EXP="2216772000" />
+	  <Level ID="191" EXP="2279889600" />
+	  <Level ID="192" EXP="2347862400" />
+	  <Level ID="193" EXP="2420690400" />
+	  <Level ID="194" EXP="2498373600" />
+	  <Level ID="195" EXP="2580912000" />
+	  <Level ID="196" EXP="2655051867" />
+	  <Level ID="197" EXP="2734894800" />
+	  <Level ID="198" EXP="2820440800" />
+	  <Level ID="199" EXP="2911689867" />
+	  <Level ID="200" EXP="3008640000" />
+	  <Level ID="201" EXP="3095362133" />
+	  <Level ID="202" EXP="3188755200" />
+	  <Level ID="203" EXP="3288819200" />
+	  <Level ID="204" EXP="3395554133" />
+	  <Level ID="205" EXP="3508956000" />
+	  <Level ID="206" EXP="3610338667" />
+	  <Level ID="207" EXP="3719520000" />
+	  <Level ID="208" EXP="3836500000" />
+	  <Level ID="209" EXP="3961278667" />
+	  <Level ID="210" EXP="4093860000" />
+	  <Level ID="211" EXP="4211984933" />
+	  <Level ID="212" EXP="4339196400" />
+	  <Level ID="213" EXP="4475494400" />
+	  <Level ID="214" EXP="4620878933" />
+	  <Level ID="215" EXP="4775352000" />
+	  <Level ID="216" EXP="4912299200" />
+	  <Level ID="217" EXP="5059780800" />
+	  <Level ID="218" EXP="5217796800" />
+	  <Level ID="219" EXP="5386347200" />
+	  <Level ID="220" EXP="5565432000" />
+	  <Level ID="221" EXP="5724321467" />
+	  <Level ID="222" EXP="5895433200" />
+	  <Level ID="223" EXP="6078767200" />
+	  <Level ID="224" EXP="6274323467" />
+	  <Level ID="225" EXP="6482100000" />
+	  <Level ID="226" EXP="6666051733" />
+	  <Level ID="227" EXP="6864153600" />
+	  <Level ID="228" EXP="7076405600" />
+	  <Level ID="229" EXP="7302807733" />
+	  <Level ID="230" EXP="7543356000" />
+	  <Level ID="231" EXP="7755488267" />
+	  <Level ID="232" EXP="7983938400" />
+	  <Level ID="233" EXP="8228706400" />
+	  <Level ID="234" EXP="8489792267" />
+	  <Level ID="235" EXP="8767200000" />
+	  <Level ID="236" EXP="9012714533" />
+	  <Level ID="237" EXP="9277114800" />
+	  <Level ID="238" EXP="9560400800" />
+	  <Level ID="239" EXP="9862572533" />
+	  <Level ID="240" EXP="10183632000" />
+	  <Level ID="241" EXP="10467721867" />
+	  <Level ID="242" EXP="10773664800" />
+	  <Level ID="243" EXP="11101460800" />
+	  <Level ID="244" EXP="11451109867" />
+	  <Level ID="245" EXP="11822652000" />
+	  <Level ID="246" EXP="12150525867" />
+	  <Level ID="247" EXP="12503620800" />
+	  <Level ID="248" EXP="12881936800" />
+	  <Level ID="249" EXP="13285473867" />
+	  <Level ID="250" EXP="13714260000" />
+	  <Level ID="251" EXP="14093201333" />
+	  <Level ID="252" EXP="14501292000" />
+	  <Level ID="253" EXP="14938532000" />
+	  <Level ID="254" EXP="15404921333" />
+	  <Level ID="255" EXP="15900456000" />
+	  <Level ID="256" EXP="16337730933" />
+	  <Level ID="257" EXP="16808642400" />
+	  <Level ID="258" EXP="17313190400" />
+	  <Level ID="259" EXP="17851374933" />
+	  <Level ID="260" EXP="18423240000" />
+	  <Level ID="261" EXP="18926149333" />
+	  <Level ID="262" EXP="19467744000" />
+	  <Level ID="263" EXP="20048024000" />
+	  <Level ID="264" EXP="20666989333" />
+	  <Level ID="265" EXP="21324612000" />
+	  <Level ID="266" EXP="21903541867" />
+	  <Level ID="267" EXP="22527004800" />
+	  <Level ID="268" EXP="23195000800" />
+	  <Level ID="269" EXP="23907529867" />
+	  <Level ID="270" EXP="24664572000" />
+	  <Level ID="271" EXP="25329925867" />
+	  <Level ID="272" EXP="26046460800" />
+	  <Level ID="273" EXP="26814176800" />
+	  <Level ID="274" EXP="27633073867" />
+	  <Level ID="275" EXP="28503120000" />
+	  <Level ID="276" EXP="29265284000" />
+	  <Level ID="277" EXP="30086076000" />
+	  <Level ID="278" EXP="30965496000" />
+	  <Level ID="279" EXP="31903544000" />
+	  <Level ID="280" EXP="32900256000" />
+	  <Level ID="281" EXP="33772770933" />
+	  <Level ID="282" EXP="34712402400" />
+	  <Level ID="283" EXP="35719150400" />
+	  <Level ID="284" EXP="36793014933" />
+	  <Level ID="285" EXP="37933980000" />
+	  <Level ID="286" EXP="38930352000" />
+	  <Level ID="287" EXP="40003368000" />
+	  <Level ID="288" EXP="41153028000" />
+	  <Level ID="289" EXP="42379332000" />
+	  <Level ID="290" EXP="43682292000" />
+	  <Level ID="291" EXP="44837191200" />
+	  <Level ID="292" EXP="46080928800" />
+	  <Level ID="293" EXP="47413504800" />
+	  <Level ID="294" EXP="48834919200" />
+	  <Level ID="295" EXP="50345192000" />
+	  <Level ID="296" EXP="51710621867" />
+	  <Level ID="297" EXP="53181084800" />
+	  <Level ID="298" EXP="54756580800" />
+	  <Level ID="299" EXP="56437109867" />
+	  <Level ID="300" EXP="58222680000" />
+	  <Level ID="301" EXP="59885310667" />
+	  <Level ID="302" EXP="61675836000" />
+	  <Level ID="303" EXP="63594256000" />
+	  <Level ID="304" EXP="65640570667" />
+	  <Level ID="305" EXP="67814756000" />
+	  <Level ID="306" EXP="69930573600" />
+	  <Level ID="307" EXP="72209146400" />
+	  <Level ID="308" EXP="74650474400" />
+	  <Level ID="309" EXP="77254557600" />
+	  <Level ID="310" EXP="80021420000" />
+	  <Level ID="311" EXP="82867778667" />
+	  <Level ID="312" EXP="85933088000" />
+	  <Level ID="313" EXP="89217348000" />
+	  <Level ID="314" EXP="92720558667" />
+	  <Level ID="315" EXP="96442672000" />
+	  <Level ID="316" EXP="100487557867" />
+	  <Level ID="317" EXP="104843588800" />
+	  <Level ID="318" EXP="109510764800" />
+	  <Level ID="319" EXP="114489085867" />
+	  <Level ID="320" EXP="119778512000" />
+	  <Level ID="321" EXP="125784664533" />
+	  <Level ID="322" EXP="132252828800" />
+	  <Level ID="323" EXP="139183004800" />
+	  <Level ID="324" EXP="146575192533" />
+	  <Level ID="325" EXP="154428940000" />
+	  <Level ID="326" EXP="163678804000" />
+	  <Level ID="327" EXP="173640196000" />
+	  <Level ID="328" EXP="184313116000" />
+	  <Level ID="329" EXP="195697564000" />
+	  <Level ID="330" EXP="207793956000" />
+	  <Level ID="331" EXP="222454392267" />
+	  <Level ID="332" EXP="238242554400" />
+	  <Level ID="333" EXP="255158442400" />
+	  <Level ID="334" EXP="273202056267" />
+	  <Level ID="335" EXP="292373560000" />
+	  <Level ID="336" EXP="315737922667" />
+	  <Level ID="337" EXP="340899544000" />
+	  <Level ID="338" EXP="367858424000" />
+	  <Level ID="339" EXP="396614562667" />
+	  <Level ID="340" EXP="427167752000" />
+	  <Level ID="341" EXP="464089221867" />
+	  <Level ID="342" EXP="503850804800" />
+	  <Level ID="343" EXP="546452500800" />
+	  <Level ID="344" EXP="591894309867" />
+	  <Level ID="345" EXP="640176532000" />
+	  <Level ID="346" EXP="697935303200" />
+	  <Level ID="347" EXP="760137056800" />
+	  <Level ID="348" EXP="826781792800" />
+	  <Level ID="349" EXP="897869511200" />
+	  <Level ID="350" EXP="973399900000" />
+	  <Level ID="351" EXP="9223372036854775807" />
+	</LevelLimit>
+    <CommonMonsterProperty>
+        <Monster ID="1" Name="波斯地鼠"  HP="2"  MoveSpeed="4.0"  WaitToEscapeTimeMin="0.5"  WaitToEscapeTimeMax="3.0"  EscapeTimeMin="2.0" EscapeTimeMax="4.0" />
+        <Monster ID="2" Name="呆萌地鼠"  HP="1"  MoveSpeed="4.0"  WaitToEscapeTimeMin="0.5"  WaitToEscapeTimeMax="3.0"  EscapeTimeMin="2.0" EscapeTimeMax="4.0" />
+        <Monster ID="3" Name="飞行地鼠"  HP="1"  MoveSpeed="4.0"  WaitToEscapeTimeMin="0.5"  WaitToEscapeTimeMax="3.0"  EscapeTimeMin="2.0" EscapeTimeMax="4.0" />
+        <Monster ID="4" Name="护士地鼠"  HP="1"  MoveSpeed="4.0"  WaitToEscapeTimeMin="0.5"  WaitToEscapeTimeMax="3.0"  EscapeTimeMin="2.0" EscapeTimeMax="4.0" />
+        <Monster ID="5" Name="矿工地鼠"  HP="2"  MoveSpeed="4.0"  WaitToEscapeTimeMin="0.5"  WaitToEscapeTimeMax="3.0"  EscapeTimeMin="2.0" EscapeTimeMax="4.0" />
+        <Monster ID="6" Name="鼠王"     HP="30"  MoveSpeed="4.0"  WaitToEscapeTimeMin="20.0"  WaitToEscapeTimeMax="20.0"  EscapeTimeMin="2.0" EscapeTimeMax="4.0" />
+        <Monster ID="7" Name="蜘蛛"     HP="2"   MoveSpeed="0.3"  WaitToEscapeTimeMin="2.0"  WaitToEscapeTimeMax="4.0"  EscapeTimeMin="2.0" EscapeTimeMax="4.0" />
+        <Monster ID="8" Name="苍蝇"     HP="1"   MoveSpeed="6.0"  WaitToEscapeTimeMin="2.0"  WaitToEscapeTimeMax="4.0"  EscapeTimeMin="2.0" EscapeTimeMax="4.0" />
+        <Monster ID="9" Name="盗宝小妖"  HP="2"  MoveSpeed="6.0"  WaitToEscapeTimeMin="2.0"  WaitToEscapeTimeMax="4.0"  EscapeTimeMin="2.0" EscapeTimeMax="4.0" />
+    </CommonMonsterProperty>
+
+    <AutoAttackConfig AutoAttackDefaultLevel="3">
+        <AutoAttack ID="1" ActiveCost="0" />
+        <AutoAttack ID="2" ActiveCost="0" />
+        <AutoAttack ID="3" ActiveCost="0" />
+        <AutoAttack ID="4" ActiveCost="1000" />
+        <AutoAttack ID="5" ActiveCost="10000" />
+        <AutoAttack ID="6" ActiveCost="100000" />
+        <AutoAttack ID="7" ActiveCost="1000000" />
+        <AutoAttack ID="8" ActiveCost="5000000" />
+        <AutoAttack ID="9" ActiveCost="10000000" />
+        <AutoAttack ID="10" ActiveCost="50000000" />
+    </AutoAttackConfig>
+    
+    <!-- 普通版 -->
+    <Room ID="1" EnterLimit="10">
+        <GameProperty AddMonsterTime="2000" AddGroupMonsterTime="5000" KillMonsterTime="1000"                      
+                      ChangeScrenceTime="30000" LoadFileTime="60000" CheckPoolTime="5000" />
+
+        <MonsterProperty>
+            <Monster ID="1" RespawnProb="230" MaxOnScreen="9"  KillRateMin="1" KillRateMax="20" MissRate="10" TicketNum="0" />
+            <Monster ID="2" RespawnProb="230" MaxOnScreen="9"  KillRateMin="1" KillRateMax="5" MissRate="10" TicketNum="0" />
+            <Monster ID="3" RespawnProb="230" MaxOnScreen="9"  KillRateMin="1" KillRateMax="15" MissRate="10" TicketNum="0" />
+            <Monster ID="4" RespawnProb="230" MaxOnScreen="9"  KillRateMin="1" KillRateMax="8" MissRate="10" TicketNum="0" />
+            <Monster ID="5" RespawnProb="80"  MaxOnScreen="9"  KillRateMin="1" KillRateMax="50" MissRate="10" TicketNum="0" />
+            <Monster ID="6" RespawnProb="0"   MaxOnScreen="1"  KillRateMin="1" KillRateMax="50" MissRate="10" TicketNum="0" />
+            <Monster ID="7" RespawnProb="0"   MaxOnScreen="30" KillRateMin="1" KillRateMax="10" MissRate="10" TicketNum="0" />
+            <Monster ID="8" RespawnProb="0"   MaxOnScreen="30" KillRateMin="1" KillRateMax="3" MissRate="10" TicketNum="0" />
+            <Monster ID="9" RespawnProb="0"   MaxOnScreen="10" KillRateMin="20" KillRateMax="20" MissRate="10" TicketNum="0" />
+        </MonsterProperty>
+
+        <GameIncoming WelfarePointFactor="3" ExpFactor="100" />
+
+        <MonsterPoolConfig DefaultSize="20" MaxSize="60" OffsetSize="10" />
+
+        <WeaponCost>
+            <Weapon ID="1" Name="木锤" Cost="10" MoneyLimit="1" />
+            <Weapon ID="2" Name="石锤" Cost="100" MoneyLimit="1" />
+            <Weapon ID="3" Name="铜锤" Cost="1000" MoneyLimit="1" />
+            <Weapon ID="4" Name="银锤" Cost="10000" MoneyLimit="1" />
+            <Weapon ID="5" Name="金锤" Cost="50000" MoneyLimit="1" />
+        </WeaponCost>
+        
+        <WeaponTicketIncoming>
+            <Weapon ID="1" TicketNumMin="1" TicketNumMax="10" /> 
+            <Weapon ID="2" TicketNumMin="10" TicketNumMax="100" /> 
+            <Weapon ID="3" TicketNumMin="100" TicketNumMax="1000" /> 
+            <Weapon ID="4" TicketNumMin="1000" TicketNumMax="10000" /> 
+            <Weapon ID="5" TicketNumMin="5000" TicketNumMax="50000" /> 
+        </WeaponTicketIncoming>
+        
+        <SkillCost>
+            <Skill ID="1" Name="连锁闪电" BaseProb="100" MaxProb="500" MaxTarget="5" ActiveLevel="1" UpgradeLevel="1" BuyCost="100" />
+            <Skill ID="2" Name="横扫千军" BaseProb="100" MaxProb="500" MaxTarget="6" ActiveLevel="10" UpgradeLevel="3" BuyCost="10000" />
+            <Skill ID="3" Name="高山流水" BaseProb="100" MaxProb="500" MaxTarget="6" ActiveLevel="20" UpgradeLevel="3" BuyCost="100000" />
+            <Skill ID="4" Name="流星火雨" BaseProb="100" MaxProb="500" MaxTarget="7" ActiveLevel="30" UpgradeLevel="5" BuyCost="1000000" />
+        </SkillCost>
+
+        <!-- [玩家昵称]%一锤定音可变%，敲晕xx倍“地鼠或怪物名称”获得xxxxxxx金币 -->
+        <Broadcast ServerLimit="10">
+            <BroadLevel Limit="10" Text="[%s]一锤定音，敲晕%d倍“%s”获得%d金币" />
+            <BroadLevel Limit="30" Text="[%s]一锤变土豪，敲晕%d倍“%s”获得%d金币" />
+        </Broadcast>
+    </Room>
+    
+    <!-- 加强版 -->
+    <Room ID="2" EnterLimit="100">
+        <GameProperty AddMonsterTime="2000" AddGroupMonsterTime="5000" KillMonsterTime="1000"                      
+                      ChangeScrenceTime="30000" LoadFileTime="60000" CheckPoolTime="5000" />
+
+        <MonsterProperty>
+            <Monster ID="1" RespawnProb="230" MaxOnScreen="9"  KillRateMin="1" KillRateMax="20" MissRate="10" TicketNum="0" />
+            <Monster ID="2" RespawnProb="230" MaxOnScreen="9"  KillRateMin="1" KillRateMax="5" MissRate="10" TicketNum="0" />
+            <Monster ID="3" RespawnProb="230" MaxOnScreen="9"  KillRateMin="1" KillRateMax="15" MissRate="10" TicketNum="0" />
+            <Monster ID="4" RespawnProb="230" MaxOnScreen="9"  KillRateMin="1" KillRateMax="8" MissRate="10" TicketNum="0" />
+            <Monster ID="5" RespawnProb="80"  MaxOnScreen="9"  KillRateMin="1" KillRateMax="50" MissRate="10" TicketNum="0" />
+            <Monster ID="6" RespawnProb="0"   MaxOnScreen="1"  KillRateMin="1" KillRateMax="50" MissRate="10" TicketNum="0" />
+            <Monster ID="7" RespawnProb="400" MaxOnScreen="30" KillRateMin="1" KillRateMax="10" MissRate="10" TicketNum="0" />
+            <Monster ID="8" RespawnProb="600" MaxOnScreen="30" KillRateMin="1" KillRateMax="3" MissRate="10" TicketNum="0" />
+            <Monster ID="9" RespawnProb="0"   MaxOnScreen="10" KillRateMin="20" KillRateMax="20" MissRate="10" TicketNum="0" />
+        </MonsterProperty>
+
+        <GameIncoming WelfarePointFactor="3" ExpFactor="100" />
+
+        <MonsterPoolConfig DefaultSize="20" MaxSize="60" OffsetSize="10" />
+
+        <WeaponCost>
+            <Weapon ID="1" Name="木锤" Cost="10" MoneyLimit="1" />
+            <Weapon ID="2" Name="石锤" Cost="100" MoneyLimit="1" />
+            <Weapon ID="3" Name="铜锤" Cost="1000" MoneyLimit="1" />
+            <Weapon ID="4" Name="银锤" Cost="10000" MoneyLimit="1" />
+            <Weapon ID="5" Name="金锤" Cost="50000" MoneyLimit="1" />
+        </WeaponCost>
+        
+        <WeaponTicketIncoming>
+            <Weapon ID="1" TicketNumMin="1" TicketNumMax="10" /> 
+            <Weapon ID="2" TicketNumMin="10" TicketNumMax="100" /> 
+            <Weapon ID="3" TicketNumMin="100" TicketNumMax="1000" /> 
+            <Weapon ID="4" TicketNumMin="1000" TicketNumMax="10000" /> 
+            <Weapon ID="5" TicketNumMin="5000" TicketNumMax="50000" /> 
+        </WeaponTicketIncoming>
+
+        <SkillCost>
+            <Skill ID="1" Name="连锁闪电" BaseProb="100" MaxProb="500" MaxTarget="5" ActiveLevel="1" UpgradeLevel="1" BuyCost="100" />
+            <Skill ID="2" Name="横扫千军" BaseProb="100" MaxProb="500" MaxTarget="6" ActiveLevel="10" UpgradeLevel="3" BuyCost="10000" />
+            <Skill ID="3" Name="高山流水" BaseProb="100" MaxProb="500" MaxTarget="6" ActiveLevel="20" UpgradeLevel="3" BuyCost="100000" />
+            <Skill ID="4" Name="流星火雨" BaseProb="100" MaxProb="500" MaxTarget="7" ActiveLevel="30" UpgradeLevel="5" BuyCost="1000000" />
+        </SkillCost>
+
+        <!-- [玩家昵称]%一锤定音可变%，敲晕xx倍“地鼠或怪物名称”获得xxxxxxx金币 -->
+        <Broadcast ServerLimit="10">
+            <BroadLevel Limit="10" Text="[%s]一锤定音，敲晕%d倍“%s”获得%d金币" />
+            <BroadLevel Limit="30" Text="[%s]一锤变土豪，敲晕%d倍“%s”获得%d金币" />
+        </Broadcast>
+
+    </Room>
+</Config>

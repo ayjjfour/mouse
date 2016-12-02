@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DON%27T modify these files">
+      <UniqueIdentifier>{8eef8407-ccf6-432e-972a-e007174bd8fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{e40ba7cb-1e89-482d-8425-7d03b48ab02f}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{ef70a516-3348-4d04-b098-9ced71e8bb70}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="browserCtrl.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdID.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="cmnfunc.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigDefs.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigSite.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="errcode.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="event_st.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHostObj.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceRes.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="Funcs.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCreator.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDev.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameHelperMsg.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePlayer.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLChat.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="htmlEncode.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="ICanvas.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameKindInfo.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameStateEvent.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="ITrace.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalHelper.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerList.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="pui.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="Res.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="SafeLink.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerSite.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="site_i.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="SiteMsg.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="SiteStruct.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="support.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="TableServer.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerList.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerObject.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerProbeMsg.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="TraceOut.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="ui.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="UserList.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="UserState.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+    <ClInclude Include="utility.h">
+      <Filter>DON%27T modify these files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EventHostObj.cpp">
+      <Filter>DON%27T modify these files</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePlayer.cpp">
+      <Filter>DON%27T modify these files</Filter>
+    </ClCompile>
+    <ClCompile Include="HTMLChat.cpp">
+      <Filter>DON%27T modify these files</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalHelper.cpp">
+      <Filter>DON%27T modify these files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerList.cpp">
+      <Filter>DON%27T modify these files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerSite.cpp">
+      <Filter>DON%27T modify these files</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerList.cpp">
+      <Filter>DON%27T modify these files</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerObject.cpp">
+      <Filter>DON%27T modify these files</Filter>
+    </ClCompile>
+    <ClCompile Include="TraceOut.cpp">
+      <Filter>DON%27T modify these files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserList.cpp">
+      <Filter>DON%27T modify these files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
